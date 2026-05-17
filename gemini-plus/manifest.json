@@ -1,0 +1,33 @@
+{
+  "manifest_version": 3,
+  "name": "Gemini+",
+  "version": "1.3",
+  "description": "Premium Gemini extension to enhance your workflow and customize the UI for a better, tailored experience.",
+  "permissions": ["storage", "alarms"],
+  "host_permissions": ["*://raw.githubusercontent.com/*"],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "action": {
+    "default_popup": "popup.html",
+    "default_icon": "icon.png"
+  },
+  "icons": {
+    "48": "icon.png",
+    "128": "icon.png"
+  },
+  "content_scripts": [
+    {
+      "matches": ["*://gemini.google.com/*"],
+      "all_frames": true,
+      "css": ["styles.css"],
+      "js": ["content.js"]
+    },
+    {
+      "matches": ["*://gemini.google.com/*"],
+      "all_frames": true,
+      "js": ["page_script.js"],
+      "world": "MAIN"
+    }
+  ]
+}
