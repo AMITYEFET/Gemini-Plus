@@ -13,6 +13,7 @@ An advanced Chrome Extension designed to supercharge your experience on **gemini
 - ⬇️ **Download Code:** Save canvas codes as a file.
 - 🖥️ **Wide Chat Mode:** Expands narrow chat width.
 - ℹ️ **Hide Disclaimer:** Removes bottom legal text.
+- 🔠 **Interface Language:** Override Gemini UI language.
   
 ## 🛠️ Installation
 
