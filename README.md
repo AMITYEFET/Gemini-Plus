@@ -12,6 +12,7 @@ An advanced Chrome Extension designed to supercharge your experience on **gemini
 - 🗑️ **Clear Canvas:** Add button to clear your canves code.
 - ⬇️ **Download Code:** Save canvas codes as a file.
 - 🖥️ **Wide Chat Mode:** Expands narrow chat width.
+- ℹ️ **Hide Disclaimer:** Removes bottom legal text.
   
 ## 🛠️ Installation
 
