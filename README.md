@@ -2,7 +2,9 @@
 
 An advanced Chrome Extension designed to supercharge your experience on **gemini.google.com**. This extension adds professional developer tools and UI enhancements to Gemini Chat and Gemini Canvas. Note: If your device is weak, it may not be able to run the plugin because it requires resources. Try running it and check the performance!
 
-## 🔍 Visit our website by clicking [here](https://amityefet.github.io/Gemini-Plus/#releases)
+## 🔍 Website
+**Visit our website by clicking [here](https://amityefet.github.io/Gemini-Plus)**
+
 ## ✨ Features
 
 - 🔢 **Native Line Numbers:** Adds accurate line numbering to code blocks in both Chat and Gemini Canvas.
