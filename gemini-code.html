@@ -1,0 +1,874 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gemini+ | Premium Google Gemini UI Enhancer</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        // קונפיגורציית ערכת הנושא של Tailwind מותאמת ל-Material You 3
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    },
+                    colors: {
+                        m3: {
+                            primary: '#6750A4',
+                            onPrimary: '#FFFFFF',
+                            primaryContainer: '#EADDFF',
+                            onPrimaryContainer: '#21005D',
+                            secondary: '#625B71',
+                            onSecondary: '#FFFFFF',
+                            tertiary: '#7D5260',
+                            surface: '#FEF7FF',
+                            onSurface: '#1D1B20',
+                            surfaceVariant: '#E7E0EC',
+                            onSurfaceVariant: '#49454F',
+                            outline: '#79747E',
+                            darkSurface: '#141218',
+                            darkSurfaceVariant: '#2B2930',
+                            darkOnSurface: '#E6E1E5',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* עיצוב סרגל גלילה מותאם אישית */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #141218;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #49454F;
+            border-radius: 10px;
+            border: 2px solid #141218;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #6750A4;
+        }
+
+        /* רקעים זוהרים אמנותיים */
+        .glowing-bg {
+            position: absolute;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(103,80,164,0.18) 0%, rgba(103,80,164,0) 70%);
+            border-radius: 50%;
+            filter: blur(50px);
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        /* כפתורי Material Ripple */
+        .m3-btn {
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
+        .m3-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(103, 80, 164, 0.25);
+        }
+        .m3-btn:active {
+            transform: translateY(1px);
+        }
+
+        /* אנימציית ריחוף כללית */
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+        .animate-float {
+            animation: float 4s ease-in-out infinite;
+        }
+
+        /* עימוד עבור תגיות שחרור */
+        .release-body ul {
+            list-style-type: disc;
+            margin-left: 1.25rem;
+            margin-bottom: 0.75rem;
+        }
+        .release-body p {
+            margin-bottom: 0.5rem;
+        }
+    </style>
+</head>
+<body class="bg-m3-darkSurface text-m3-darkOnSurface font-sans selection:bg-m3-primaryContainer selection:text-m3-onPrimaryContainer overflow-x-hidden">
+
+    <!-- רקעים זוהרים דינמיים -->
+    <div class="glowing-bg top-10 left-[-100px]"></div>
+    <div class="glowing-bg top-[800px] right-[-100px]"></div>
+    <div class="glowing-bg bottom-40 left-[20%]"></div>
+
+    <!-- ניווט עליון -->
+    <header class="sticky top-0 z-50 backdrop-blur-md bg-m3-darkSurface/85 border-b border-m3-darkSurfaceVariant px-6 py-4 transition-all">
+        <div class="max-w-7xl mx-auto flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <div class="bg-gradient-to-tr from-m3-primary to-m3-primaryContainer p-1 rounded-xl shadow-lg shadow-m3-primary/20">
+                    <!-- שימוש בלוגו הרשמי שסופק -->
+                    <img src="https://github.com/AMITYEFET/Gemini-Plus/blob/main/gemini-plus/icon.png?raw=true" alt="Gemini+ Logo" class="w-9 h-9 rounded-lg object-cover">
+                </div>
+                <div>
+                    <span class="font-extrabold text-xl tracking-tight bg-gradient-to-r from-white via-m3-primaryContainer to-m3-primary bg-clip-text text-transparent">Gemini+</span>
+                    <span class="text-xs block text-m3-outline -mt-1 font-medium">Premium UI Extension</span>
+                </div>
+            </div>
+
+            <!-- תפריט ניווט -->
+            <nav class="hidden md:flex items-center gap-8 text-sm font-semibold text-m3-darkOnSurface/80">
+                <a href="#features" class="hover:text-white transition-colors">Features</a>
+                <a href="#releases" class="hover:text-white transition-colors">Releases</a>
+                <a href="#install" class="hover:text-white transition-colors">Quick Install</a>
+                <a href="https://github.com/AMITYEFET/Gemini-Plus" target="_blank" class="hover:text-white transition-colors flex items-center gap-1.5">
+                    GitHub <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.865 8.166 6.839 9.489.5.092.682-.217.682-.482 0-.237-.008-.866-.013-1.7-2.782.603-3.369-1.34-3.369-1.34-.454-1.156-1.11-1.462-1.11-1.462-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.831.092-.646.35-1.086.636-1.336-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.203 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.579.688.481C19.138 20.161 22 16.416 22 12c0-5.523-4.523-10-10-10z"/></svg>
+                </a>
+            </nav>
+
+            <!-- כפתור פעולה -->
+            <div class="flex items-center gap-4">
+                <a href="#install" class="m3-btn hidden sm:flex items-center gap-2 bg-m3-primary text-white text-sm font-bold px-5 py-2.5 rounded-full">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
+                    Install Free
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- אזור Hero ראשי -->
+    <section class="relative pt-20 pb-24 px-6 max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+        <!-- תוכן משמאל -->
+        <div class="lg:col-span-6 z-10">
+            <h1 class="text-4xl sm:text-5xl lg:text-6xl font-black tracking-tight leading-none mb-6">
+                Supercharge <br class="hidden sm:inline">
+                Your <span class="bg-gradient-to-r from-m3-primaryContainer via-[#D5C2F1] to-m3-primary bg-clip-text text-transparent">Gemini Workspace</span>
+            </h1>
+
+            <p class="text-base sm:text-lg text-m3-darkOnSurface/80 mb-8 max-w-xl leading-relaxed">
+                Gemini+ is a premium Chromium extension designed to eliminate UI clutter, inject crucial coding features like native line numbers & responsive resolution resizing, and streamline your entire workflow. Completely free & open-source.
+            </p>
+
+            <!-- כפתורי הנעה לפעולה -->
+            <div class="flex flex-col sm:flex-row gap-4 mb-10">
+                <a href="#install" class="m3-btn flex items-center justify-center gap-3 bg-white text-m3-darkSurface hover:bg-m3-primaryContainer font-bold px-8 py-4 rounded-2xl text-base shadow-xl transition-all">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
+                    Download Extension
+                </a>
+                <a href="#releases" class="m3-btn flex items-center justify-center gap-2 bg-m3-darkSurfaceVariant border border-m3-outline/20 text-white font-semibold px-6 py-4 rounded-2xl text-base hover:bg-m3-darkSurfaceVariant/80 transition-all">
+                    View Release History
+                    <svg class="w-5 h-5 text-m3-outline" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+                </a>
+            </div>
+
+            <!-- נתונים מהירים -->
+            <div class="grid grid-cols-3 gap-6 pt-8 border-t border-m3-darkSurfaceVariant/60 max-w-md">
+                <div>
+                    <div class="text-2xl font-bold text-white">100%</div>
+                    <div class="text-xs text-m3-outline">Open Source</div>
+                </div>
+                <div>
+                    <div class="text-2xl font-bold text-white">&lt; 1MB</div>
+                    <div class="text-xs text-m3-outline">Lightweight Size</div>
+                </div>
+                <div>
+                    <div class="text-2xl font-bold text-white">0%</div>
+                    <div class="text-xs text-m3-outline">Ads or Tracking</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- תמונה ייצוגית מימין -->
+        <div class="lg:col-span-6 z-10 relative">
+            <div class="animate-float relative bg-m3-darkSurfaceVariant/40 rounded-3xl p-4 border border-m3-outline/10 shadow-2xl backdrop-blur-sm">
+                <!-- Mac style browser header bar -->
+                <div class="flex items-center justify-between mb-4 pb-2 border-b border-m3-outline/10">
+                    <div class="flex gap-1.5">
+                        <span class="w-3 h-3 rounded-full bg-red-500/80"></span>
+                        <span class="w-3 h-3 rounded-full bg-yellow-500/80"></span>
+                        <span class="w-3 h-3 rounded-full bg-green-500/80"></span>
+                    </div>
+                    <span class="text-xs text-m3-outline font-mono bg-m3-darkSurface/50 px-3 py-1 rounded-md">gemini.google.com + Gemini+</span>
+                    <span class="w-12"></span>
+                </div>
+
+                <!-- Simulation Showcase -->
+                <div class="rounded-2xl bg-m3-darkSurface border border-m3-outline/5 overflow-hidden flex flex-col h-[320px]">
+                    <div class="bg-m3-darkSurfaceVariant/70 p-2.5 border-b border-m3-outline/5 flex items-center justify-between text-xs">
+                        <div class="flex items-center gap-1">
+                            <span class="text-m3-primary inline-block font-extrabold mr-1">G+ Toolbar</span>
+                            <span class="text-m3-outline">|</span>
+                            <button class="text-m3-outline hover:text-white p-1 rounded transition-colors"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16"/></svg></button>
+                            <span class="text-m3-outline">/</span>
+                            <button class="text-m3-primary bg-m3-primary/10 px-2 py-0.5 rounded font-bold text-[10px] flex items-center gap-1">
+                                <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1M12 12V4m0 8l-3-3m3 3l3-3" stroke-width="2"/></svg> Download
+                            </button>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <span class="bg-m3-primary/20 text-m3-primaryContainer font-mono text-[10px] px-1.5 py-0.5 rounded border border-m3-primary/20">Enhanced Workspace</span>
+                        </div>
+                    </div>
+
+                    <div class="p-4 flex-1 overflow-auto text-xs font-mono leading-relaxed space-y-4">
+                        <div class="text-m3-outline">// Premium UI Upgrades Engaged</div>
+                        <div class="flex gap-3">
+                            <div class="text-right text-m3-outline/40 select-none pr-2 border-r border-m3-outline/10 space-y-1">
+                                <div>1</div><div>2</div><div>3</div><div>4</div><div>5</div>
+                            </div>
+                            <div class="space-y-1 text-[#C9D1D9]">
+                                <div><span class="text-purple-400">const</span> extension = <span class="text-blue-400">new</span> <span class="text-yellow-400">GeminiPlus</span>();</div>
+                                <div>extension.<span class="text-blue-400">enableLineNumbers</span>(<span class="text-orange-400">true</span>);</div>
+                                <div>extension.<span class="text-blue-400">enableWordWrap</span>(<span class="text-orange-400">true</span>);</div>
+                                <div>extension.<span class="text-blue-400">enableCanvasResize</span>(<span class="text-orange-400">true</span>);</div>
+                                <div class="text-emerald-400">// Clean Workspace Ready</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Glow background decor -->
+            <div class="absolute -bottom-6 -right-6 w-72 h-72 bg-m3-primary/20 blur-3xl rounded-full z-[-1]"></div>
+        </div>
+    </section>
+
+    <!-- רשת פיצ'רים עיקרית (עם רוטציית 7 שניות מעוצבת ו-SVGs ייחודיים לכל פיצ'ר) -->
+    <section id="features" class="py-24 px-6 border-t border-m3-darkSurfaceVariant/40 bg-m3-darkSurface/50 relative overflow-hidden">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center max-w-2xl mx-auto mb-16">
+                <h2 class="text-xs uppercase tracking-widest text-m3-primary font-bold mb-3">Power-up Breakdown</h2>
+                <h3 class="text-3xl sm:text-4xl font-extrabold tracking-tight mb-4">Crafted for Advanced AI Workflows</h3>
+                <p class="text-m3-darkOnSurface/70">
+                    We inspected every detail of Gemini’s native UI to patch up missing features, giving developers and power users the workspace they deserve.
+                </p>
+            </div>
+
+            <!-- אזור רוטציית הפיצ'רים - 4 קבוצות של 3 פיצ'רים (סך הכל 12 כולל השלמות) -->
+            <div class="relative">
+                
+                <!-- קבוצה 1: פיצ'רים 1-3 -->
+                <div id="feature-group-1" class="feature-group grid grid-cols-1 md:grid-cols-3 gap-6 transition-opacity duration-500 ease-in-out">
+                    <!-- Feature 1: Native Line Numbers -->
+                    <div class="bg-m3-darkSurfaceVariant/30 border border-m3-outline/10 p-6 rounded-3xl hover:border-m3-primary/40 transition-all group">
+                        <div class="w-12 h-12 rounded-2xl bg-m3-primary/10 text-m3-primary flex items-center justify-center mb-5 group-hover:scale-110 transition-transform">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h7M16 18h4" />
+                            </svg>
+                        </div>
+                        <h4 class="text-lg font-bold mb-2 text-white">Native Line Numbers</h4>
+                        <p class="text-sm text-m3-darkOnSurface/70 leading-relaxed">
+                            Adds accurate line numbering to code blocks in both Chat and Gemini Canvas, making debugging and structure analysis seamless.
+                        </p>
+                    </div>
+
+                    <!-- Feature 2: Canvas Resizer -->
+                    <div class="bg-m3-darkSurfaceVariant/30 border border-m3-outline/10 p-6 rounded-3xl hover:border-m3-primary/40 transition-all group">
+                        <div class="w-12 h-12 rounded-2xl bg-m3-primary/10 text-m3-primary flex items-center justify-center mb-5 group-hover:scale-110 transition-transform">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z" />
+                            </svg>
+                        </div>
+                        <h4 class="text-lg font-bold mb-2 text-white">Canvas Resizer</h4>
+                        <p class="text-sm text-m3-darkOnSurface/70 leading-relaxed">
+                            Integrated toolbar inside the Canvas UI to test your code in different resolutions (Desktop, Tablet, Mobile, or Custom Width limits).
+                        </p>
+                    </div>
+
+                    <!-- Feature 3: Custom Scrollbars -->
+                    <div class="bg-m3-darkSurfaceVariant/30 border border-m3-outline/10 p-6 rounded-3xl hover:border-m3-primary/40 transition-all group">
+                        <div class="w-12 h-12 rounded-2xl bg-m3-primary/10 text-m3-primary flex items-center justify-center mb-5 group-hover:scale-110 transition-transform">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-3" />
+                            </svg>
+                        </div>
+                        <h4 class="text-lg font-bold mb-2 text-white">Custom Scrollbars</h4>
+                        <p class="text-sm text-m3-darkOnSurface/70 leading-relaxed">
+                            Fully customizable scrollbar colors. Tweak, theme, or color-pick scrollbars to fit perfectly with dark and light IDE configurations.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- קבוצה 2: פיצ'רים 4-6 -->
+                <div id="feature-group-2" class="feature-group hidden opacity-0 pointer-events-none grid-cols-1 md:grid-cols-3 gap-6 transition-opacity duration-500 ease-in-out">
+                    <!-- Feature 4: Word Wrap -->
+                    <div class="bg-m3-darkSurfaceVariant/30 border border-m3-outline/10 p-6 rounded-3xl hover:border-m3-primary/40 transition-all group">
+                        <div class="w-12 h-12 rounded-2xl bg-m3-primary/10 text-m3-primary flex items-center justify-center mb-5 group-hover:scale-110 transition-transform">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M4 4h16M4 9h16M4 14h10M18 14h4l-3-3m3 3l-3 3M4 19h16" />
+                            </svg>
+                        </div>
+                        <h4 class="text-lg font-bold mb-2 text-white">Word Wrap</h4>
+                        <p class="text-sm text-m3-darkOnSurface/70 leading-relaxed">
+                            Toggle word wrapping for long code blocks to prevent exhausting horizontal scrolling and read code naturally in one viewport.
+                        </p>
+                    </div>
+
+                    <!-- Feature 5: Go To Line -->
+                    <div class="bg-m3-darkSurfaceVariant/30 border border-m3-outline/10 p-6 rounded-3xl hover:border-m3-primary/40 transition-all group">
+                        <div class="w-12 h-12 rounded-2xl bg-m3-primary/10 text-m3-primary flex items-center justify-center mb-5 group-hover:scale-110 transition-transform">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M13 5l7 7-7 7M5 5l7 7-7 7" />
+                            </svg>
+                        </div>
+                        <h4 class="text-lg font-bold mb-2 text-white">Go To Line</h4>
+                        <p class="text-sm text-m3-darkOnSurface/70 leading-relaxed">
+                            Navigate directly to any line in your canvas code. Instantly jump to specific logic blocks inside large scripts or schemas.
+                        </p>
+                    </div>
+
+                    <!-- Feature 6: Clear Canvas -->
+                    <div class="bg-m3-darkSurfaceVariant/30 border border-m3-outline/10 p-6 rounded-3xl hover:border-m3-primary/40 transition-all group">
+                        <div class="w-12 h-12 rounded-2xl bg-m3-primary/10 text-m3-primary flex items-center justify-center mb-5 group-hover:scale-110 transition-transform">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                            </svg>
+                        </div>
+                        <h4 class="text-lg font-bold mb-2 text-white">Clear Canvas</h4>
+                        <p class="text-sm text-m3-darkOnSurface/70 leading-relaxed">
+                            Add an integrated clean-sweep button to empty all of your canvas workspace code instantly, freeing you up to paste new targets.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- קבוצה 3: פיצ'רים 7-9 -->
+                <div id="feature-group-3" class="feature-group hidden opacity-0 pointer-events-none grid-cols-1 md:grid-cols-3 gap-6 transition-opacity duration-500 ease-in-out">
+                    <!-- Feature 7: Download Code -->
+                    <div class="bg-m3-darkSurfaceVariant/30 border border-m3-outline/10 p-6 rounded-3xl hover:border-m3-primary/40 transition-all group">
+                        <div class="w-12 h-12 rounded-2xl bg-m3-primary/10 text-m3-primary flex items-center justify-center mb-5 group-hover:scale-110 transition-transform">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                            </svg>
+                        </div>
+                        <h4 class="text-lg font-bold mb-2 text-white">Download Code</h4>
+                        <p class="text-sm text-m3-darkOnSurface/70 leading-relaxed">
+                            Save canvas codes directly down to native local files complete with appropriate extensions, like `.js`, `.py`, `.json`, `.css` and more.
+                        </p>
+                    </div>
+
+                    <!-- Feature 8: Wide Chat Mode -->
+                    <div class="bg-m3-darkSurfaceVariant/30 border border-m3-outline/10 p-6 rounded-3xl hover:border-m3-primary/40 transition-all group">
+                        <div class="w-12 h-12 rounded-2xl bg-m3-primary/10 text-m3-primary flex items-center justify-center mb-5 group-hover:scale-110 transition-transform">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5v-4m0 4h-4m4 0l-5-5" />
+                            </svg>
+                        </div>
+                        <h4 class="text-lg font-bold mb-2 text-white">Wide Chat Mode</h4>
+                        <p class="text-sm text-m3-darkOnSurface/70 leading-relaxed">
+                            Expands Gemini's narrow conversation layout up to 90% wide view limits, providing room to read larger tables, structural lists and scripts.
+                        </p>
+                    </div>
+
+                    <!-- Feature 9: Hide Disclaimer -->
+                    <div class="bg-m3-darkSurfaceVariant/30 border border-m3-outline/10 p-6 rounded-3xl hover:border-m3-primary/40 transition-all group">
+                        <div class="w-12 h-12 rounded-2xl bg-m3-primary/10 text-m3-primary flex items-center justify-center mb-5 group-hover:scale-110 transition-transform">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l18 18" />
+                            </svg>
+                        </div>
+                        <h4 class="text-lg font-bold mb-2 text-white">Hide Disclaimer</h4>
+                        <p class="text-sm text-m3-darkOnSurface/70 leading-relaxed">
+                            Removes Gemini's bottom legal disclaimer/advice notice permanently to maximize layout spaces and decrease visual distraction.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- קבוצה 4: פיצ'ר 10 + השלמות תפריט -->
+                <div id="feature-group-4" class="feature-group hidden opacity-0 pointer-events-none grid-cols-1 md:grid-cols-3 gap-6 transition-opacity duration-500 ease-in-out">
+                    <!-- Feature 10: Interface Language -->
+                    <div class="bg-m3-darkSurfaceVariant/30 border border-m3-outline/10 p-6 rounded-3xl hover:border-m3-primary/40 transition-all group">
+                        <div class="w-12 h-12 rounded-2xl bg-m3-primary/10 text-m3-primary flex items-center justify-center mb-5 group-hover:scale-110 transition-transform">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 0H3m5 6.135C5.824 13.514 4.075 11.405 3 9m18 12l-4.75-12h-1.5L10 21m2.5-3.5h5" />
+                            </svg>
+                        </div>
+                        <h4 class="text-lg font-bold mb-2 text-white">Interface Language</h4>
+                        <p class="text-sm text-m3-darkOnSurface/70 leading-relaxed">
+                            Force override Gemini's visual interface language to your native preference directly from the settings, bypassing location triggers.
+                        </p>
+                    </div>
+
+                    <!-- Feature 11: Export & Import Configuration -->
+                    <div class="bg-m3-darkSurfaceVariant/30 border border-m3-outline/10 p-6 rounded-3xl hover:border-m3-primary/40 transition-all group">
+                        <div class="w-12 h-12 rounded-2xl bg-m3-primary/10 text-m3-primary flex items-center justify-center mb-5 group-hover:scale-110 transition-transform">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4" />
+                            </svg>
+                        </div>
+                        <h4 class="text-lg font-bold mb-2 text-white">Backup Extension Settings</h4>
+                        <p class="text-sm text-m3-darkOnSurface/70 leading-relaxed">
+                            Export and import your entire Gemini+ extension configuration into a single JSON file to sync your customized layout and styling preferences perfectly across devices.
+                        </p>
+                    </div>
+
+                    <!-- Feature 12: Zero Server Privacy -->
+                    <div class="bg-m3-darkSurfaceVariant/30 border border-m3-outline/10 p-6 rounded-3xl hover:border-m3-primary/40 transition-all group">
+                        <div class="w-12 h-12 rounded-2xl bg-m3-primary/10 text-m3-primary flex items-center justify-center mb-5 group-hover:scale-110 transition-transform">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                            </svg>
+                        </div>
+                        <h4 class="text-lg font-bold mb-2 text-white">100% Privacy Safe</h4>
+                        <p class="text-sm text-m3-darkOnSurface/70 leading-relaxed">
+                            Complies fully with modern Chrome Manifest V3 regulations. Gemini+ requires no central servers, ensuring user privacy is preserved.
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- מחווני רוטציה תחתונים ל-4 קבוצות -->
+            <div class="flex justify-center gap-2 mt-8">
+                <span id="dot-1" class="w-2.5 h-2.5 rounded-full bg-m3-primary transition-all duration-300 cursor-pointer"></span>
+                <span id="dot-2" class="w-2.5 h-2.5 rounded-full bg-m3-outline/35 transition-all duration-300 cursor-pointer"></span>
+                <span id="dot-3" class="w-2.5 h-2.5 rounded-full bg-m3-outline/35 transition-all duration-300 cursor-pointer"></span>
+                <span id="dot-4" class="w-2.5 h-2.5 rounded-full bg-m3-outline/35 transition-all duration-300 cursor-pointer"></span>
+            </div>
+        </div>
+    </section>
+
+    <!-- סקשן שחרורים וגרסאות מ-GitHub -->
+    <section id="releases" class="py-24 px-6 relative max-w-5xl mx-auto">
+        <div class="text-center max-w-2xl mx-auto mb-16">
+            <h2 class="text-xs uppercase tracking-widest text-m3-primary font-bold mb-3">Changelog & Updates</h2>
+            <h3 class="text-3xl sm:text-4xl font-extrabold tracking-tight mb-4">Official Project Releases</h3>
+            <p class="text-m3-darkOnSurface/70">
+                Track our progress and feature rollouts. The timeline below is pulled dynamically from our official GitHub repository releases.
+            </p>
+        </div>
+
+        <!-- מכל שחרורים (Releases Container) -->
+        <div class="bg-m3-darkSurfaceVariant/30 border border-m3-outline/10 rounded-3xl p-6 sm:p-10 shadow-xl backdrop-blur-sm relative">
+            <div id="releases-loading-state" class="space-y-8">
+                <!-- שלד טעינה (Skeleton Loader) חלקי -->
+                <div class="animate-pulse flex flex-col md:flex-row gap-6">
+                    <div class="w-32 h-6 bg-m3-darkSurfaceVariant rounded"></div>
+                    <div class="flex-1 space-y-3">
+                        <div class="h-8 bg-m3-darkSurfaceVariant rounded w-3/4"></div>
+                        <div class="h-4 bg-m3-darkSurfaceVariant rounded w-5/6"></div>
+                        <div class="h-4 bg-m3-darkSurfaceVariant rounded w-2/3"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- אזור התוכן המוזרק בצורת Timeline (הגרסה האחרונה בנפרד, והשאר מוסתרים) -->
+            <div id="releases-timeline" class="hidden relative border-l border-m3-outline/20 ml-4 md:ml-32 space-y-12">
+                <!-- כאן תוזרק הגרסה האחרונה -->
+                <div id="latest-release-timeline" class="space-y-12"></div>
+                
+                <!-- כאן יוזרקו הגרסאות הישנות יותר (מכווץ כברירת מחדל) -->
+                <div id="older-releases-container" class="hidden space-y-12 transition-all duration-500"></div>
+            </div>
+
+            <!-- כפתור הרחבה/כיווץ לשחרורים ישנים -->
+            <div id="toggle-releases-btn-container" class="hidden text-center mt-12">
+                <button id="toggle-older-btn" class="m3-btn inline-flex items-center gap-2 bg-m3-darkSurfaceVariant border border-m3-outline/20 text-white font-bold px-6 py-3 rounded-full text-xs hover:bg-m3-darkSurfaceVariant/80 transition-all">
+                    <span id="toggle-btn-text">Show Older Releases</span>
+                    <svg id="toggle-btn-icon" class="w-4 h-4 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"/>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- מדריך התקנה נוח ופשוט -->
+    <section id="install" class="py-24 px-6 border-t border-m3-darkSurfaceVariant/40 bg-m3-darkSurface/50 relative">
+        <div class="max-w-4xl mx-auto">
+            <div class="text-center mb-16">
+                <h2 class="text-xs uppercase tracking-widest text-m3-primary font-bold mb-3">Install Process</h2>
+                <h3 class="text-3xl font-extrabold tracking-tight mb-4">Set Up in Less Than 60 Seconds</h3>
+                <p class="text-m3-darkOnSurface/70">
+                    Since Gemini+ is a specialized developer tool hosted on GitHub, you can load it instantly into any Chromium browser (Chrome, Brave, Edge, Opera).
+                </p>
+            </div>
+
+            <!-- שלבי ההתקנה -->
+            <div class="space-y-6">
+                <!-- Step 1 -->
+                <div class="flex flex-col md:flex-row gap-6 bg-m3-darkSurfaceVariant/30 border border-m3-outline/10 p-6 rounded-3xl items-start transition-all hover:border-m3-primary/30">
+                    <div class="w-12 h-12 rounded-full bg-m3-primary text-white font-extrabold text-lg flex items-center justify-center flex-shrink-0">
+                        1
+                    </div>
+                    <div>
+                        <h4 class="text-lg font-bold text-white mb-2">Get the Package Archive</h4>
+                        <p class="text-sm text-m3-darkOnSurface/70 mb-4 leading-relaxed">
+                            Download the repository directly as a ZIP file containing the popup interface, stylesheet updates, and safe background processes.
+                        </p>
+                        <a href="https://github.com/AMITYEFET/Gemini-Plus/archive/refs/heads/main.zip" class="inline-flex items-center gap-2 text-xs bg-m3-primary/10 text-m3-primary font-bold px-4 py-2 rounded-xl hover:bg-m3-primary/20 transition-all">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
+                            Download ZIP (Stable)
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Step 2 -->
+                <div class="flex flex-col md:flex-row gap-6 bg-m3-darkSurfaceVariant/30 border border-m3-outline/10 p-6 rounded-3xl items-start transition-all hover:border-m3-primary/30">
+                    <div class="w-12 h-12 rounded-full bg-m3-primary/20 text-m3-primary font-extrabold text-lg flex items-center justify-center flex-shrink-0">
+                        2
+                    </div>
+                    <div>
+                        <h4 class="text-lg font-bold text-white mb-2">Extract the Files</h4>
+                        <p class="text-sm text-m3-darkOnSurface/70 leading-relaxed">
+                            Unpack the downloaded `.zip` file into a dedicated folder on your local machine. Ensure the <code class="bg-[#1E1F20] px-1.5 py-0.5 rounded text-m3-primary text-xs font-mono">manifest.json</code> lies directly in the root of the extracted folder.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Step 3 -->
+                <div class="flex flex-col md:flex-row gap-6 bg-m3-darkSurfaceVariant/30 border border-m3-outline/10 p-6 rounded-3xl items-start transition-all hover:border-m3-primary/30">
+                    <div class="w-12 h-12 rounded-full bg-m3-primary/20 text-m3-primary font-extrabold text-lg flex items-center justify-center flex-shrink-0">
+                        3
+                    </div>
+                    <div>
+                        <h4 class="text-lg font-bold text-white mb-2">Enable Developer Mode in Browser</h4>
+                        <p class="text-sm text-m3-darkOnSurface/70 mb-4 leading-relaxed">
+                            Open a new tab and navigate to the browser’s extensions controller page.
+                        </p>
+                        <div class="bg-[#1E1F20] p-3 rounded-2xl border border-m3-outline/10 font-mono text-xs flex justify-between items-center max-w-md">
+                            <span class="text-m3-primary font-semibold">chrome://extensions</span>
+                            <button onclick="navigator.clipboard.writeText('chrome://extensions')" class="text-m3-outline hover:text-white transition-colors" title="Copy link">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3" stroke-width="2"/></svg>
+                            </button>
+                        </div>
+                        <p class="text-xs text-m3-outline mt-3">
+                            Simply turn on the <span class="text-white font-semibold">Developer mode</span> switch in the top-right corner of that page.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Step 4 -->
+                <div class="flex flex-col md:flex-row gap-6 bg-m3-darkSurfaceVariant/30 border border-m3-outline/10 p-6 rounded-3xl items-start transition-all hover:border-m3-primary/30">
+                    <div class="w-12 h-12 rounded-full bg-m3-primary/20 text-m3-primary font-extrabold text-lg flex items-center justify-center flex-shrink-0">
+                        4
+                    </div>
+                    <div>
+                        <h4 class="text-lg font-bold text-white mb-2">Load the Folder</h4>
+                        <p class="text-sm text-m3-darkOnSurface/70 leading-relaxed">
+                            Click the <span class="text-white font-bold">"Load unpacked"</span> button in the top-left area. Select the extracted folder containing the extension files.
+                        </p>
+                        <div class="mt-4 p-4 rounded-2xl border border-green-500/20 bg-green-500/5 text-xs text-green-400">
+                            🎉 <span class="font-bold">Setup Complete!</span> Pin Gemini+ from your extension bar, load up <a href="https://gemini.google.com" target="_blank" class="underline font-bold text-white hover:text-m3-primaryContainer transition-colors">gemini.google.com</a>, and enjoy an enhanced premium AI workspace instantly!
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ביטחון ואמינות הפרויקט -->
+    <section class="py-24 px-6 relative max-w-7xl mx-auto border-t border-m3-darkSurfaceVariant/40">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <div>
+                <h3 class="text-3xl font-extrabold text-white mb-6">Designed for Security & Privacy</h3>
+                <p class="text-m3-darkOnSurface/80 mb-6 leading-relaxed">
+                    Unlike standard extensions that mine background data or inject script trackers, Gemini+ operates strictly in memory. It holds zero cookies, transmits no personal intelligence outside of checking for official update revisions, and is fully audit-ready.
+                </p>
+                
+                <div class="space-y-4">
+                    <div class="flex gap-4 items-start">
+                        <svg class="w-5 h-5 text-green-400 mt-1 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
+                        <div>
+                            <h5 class="text-sm font-bold text-white">Strict Chrome Manifest V3 Compliance</h5>
+                            <p class="text-xs text-m3-outline">Built atop Chrome's latest security guidelines to ensure your system memory is fully guarded.</p>
+                        </div>
+                    </div>
+                    <div class="flex gap-4 items-start">
+                        <svg class="w-5 h-5 text-green-400 mt-1 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
+                        <div>
+                            <h5 class="text-sm font-bold text-white">No Server Backend</h5>
+                            <p class="text-xs text-m3-outline">All preferences, backup states, and settings reside in your browser's private Chrome Sync database.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-8">
+                    <a href="https://github.com/AMITYEFET/Gemini-Plus" target="_blank" class="m3-btn inline-flex items-center gap-3 bg-m3-darkSurfaceVariant border border-m3-outline/20 text-white font-bold px-6 py-3.5 rounded-2xl text-sm hover:bg-m3-darkSurfaceVariant/80 transition-all">
+                        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.865 8.166 6.839 9.489.5.092.682-.217.682-.482 0-.237-.008-.866-.013-1.7-2.782.603-3.369-1.34-3.369-1.34-.454-1.156-1.11-1.462-1.11-1.462-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.831.092-.646.35-1.086.636-1.336-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.203 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.579.688.481C19.138 20.161 22 16.416 22 12c0-5.523-4.523-10-10-10z"/></svg>
+                        Inspect Code on GitHub
+                    </a>
+                </div>
+            </div>
+
+            <!-- כרטיס יוצר הפרויקט (מעודכן עם תיאור וביוגרפיה חדשים) -->
+            <div class="bg-gradient-to-tr from-[#1B122C] to-m3-darkSurfaceVariant/30 p-8 rounded-3xl border border-m3-outline/10 text-center relative overflow-hidden">
+                <div class="absolute -top-12 -left-12 w-48 h-48 bg-m3-primary/10 blur-2xl rounded-full"></div>
+                
+                <h4 class="text-xs uppercase font-extrabold tracking-widest text-m3-primary mb-4">Meet the Developer</h4>
+                <div class="relative inline-block mb-4">
+                    <!-- תמונת פרופיל משודרגת לפי דרישה -->
+                    <img src="https://avatars.githubusercontent.com/u/108016055?v=4&size=64" alt="Amit Yefet" class="w-16 h-16 rounded-full mx-auto object-cover shadow-lg shadow-m3-primary/20 border-2 border-m3-primary">
+                </div>
+                
+                <h5 class="text-xl font-black text-white mb-1">Amit Yefet</h5>
+                <span class="text-xs text-m3-outline block mb-4">Young Hobbyist Developer</span>
+                
+                <!-- ביוגרפיה מעודכנת באנגלית הכוללת קישורים לחיצים חיצוניים -->
+                <p class="text-xs text-m3-darkOnSurface/70 leading-relaxed max-w-sm mx-auto mb-6">
+                    Creator of Gemini+, <a href="https://github.com/AMITYEFET/FestAndPlay" target="_blank" class="text-m3-primaryContainer hover:underline font-semibold text-white">FestAndPlay</a> and <a href="https://github.com/AMITYEFET/Find-Flix" target="_blank" class="text-m3-primaryContainer hover:underline font-semibold text-white">Find-Flix</a>.
+                </p>
+
+                <div class="flex items-center justify-center gap-3">
+                    <a href="https://github.com/AMITYEFET" target="_blank" class="text-m3-outline hover:text-white transition-colors text-xs font-semibold">GitHub Profile</a>
+                    <span class="text-m3-outline">•</span>
+                    <a href="https://github.com/AMITYEFET/Gemini-Plus/issues" target="_blank" class="text-m3-outline hover:text-white transition-colors text-xs font-semibold">Request Feature</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer תחתון -->
+    <footer class="bg-m3-darkSurface border-t border-m3-darkSurfaceVariant/40 py-12 px-6">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
+            <div class="flex items-center gap-3">
+                <div class="bg-m3-darkSurfaceVariant p-1 rounded-xl">
+                    <img src="https://github.com/AMITYEFET/Gemini-Plus/blob/main/gemini-plus/icon.png?raw=true" alt="Gemini+ Logo" class="w-7 h-7 rounded-md object-cover">
+                </div>
+                <div>
+                    <span class="font-bold text-sm text-white block">Gemini+ Enhancement Extension</span>
+                    <span class="text-[10px] text-m3-outline block">Crafted with Material Design 3 and Google styling</span>
+                </div>
+            </div>
+
+            <div class="flex flex-wrap justify-center gap-6 text-xs text-m3-outline">
+                <a href="https://github.com/AMITYEFET/Gemini-Plus" target="_blank" class="hover:text-white transition-colors">Project Hub</a>
+                <a href="https://github.com/AMITYEFET/Gemini-Plus/blob/main/LICENSE" target="_blank" class="hover:text-white transition-colors">MIT License</a>
+                <a href="#features" class="hover:text-white transition-colors">Capabilities</a>
+                <a href="#install" class="hover:text-white transition-colors">Installation</a>
+            </div>
+
+            <div class="text-xs text-m3-outline text-center md:text-right">
+                © 2026 Gemini+. Designed and maintained by <a href="https://github.com/AMITYEFET" target="_blank" class="text-white hover:text-m3-primary font-semibold">Amit Yefet</a>.
+            </div>
+        </div>
+    </footer>
+
+    <!-- לוגיקת אתר ותקשורת מול ה-API של GitHub -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // אלמנטים של אזור השחרורים
+            const loadingState = document.getElementById('releases-loading-state');
+            const timeline = document.getElementById('releases-timeline');
+            const latestContainer = document.getElementById('latest-release-timeline');
+            const olderContainer = document.getElementById('older-releases-container');
+            const toggleBtnContainer = document.getElementById('toggle-releases-btn-container');
+            const toggleOlderBtn = document.getElementById('toggle-older-btn');
+            const toggleBtnText = document.getElementById('toggle-btn-text');
+            const toggleBtnIcon = document.getElementById('toggle-btn-icon');
+
+            // פונקציית גיבוי במקרה של שגיאה או חסימת רשת (Fallback Data)
+            function renderFallbackReleases() {
+                const fallbackData = [
+                    {
+                        tag_name: "v1.3",
+                        name: "Premium UI Refinement & Sidebar Collapsing",
+                        published_at: "2025-05-10T12:00:00Z",
+                        body: "### Added\n- Added accordion-style **Collapsible Pinned Chats** feature for sidebar tidiness.\n- Support for automatic browser-determined system language override.\n- Fixed Monaco Editor sizing & word wrap states on live updates."
+                    },
+                    {
+                        tag_name: "v1.2",
+                        name: "Canvas Resizer & Theme Tweaks",
+                        published_at: "2025-04-18T15:30:00Z",
+                        body: "### Added\n- Dynamic canvas resolution toolbar with custom **Resolution** inputs.\n- Custom scrollbar customization with dynamic color-pickers.\n- Ability to hide the legal disclaimer bar."
+                    },
+                    {
+                        tag_name: "v1.1",
+                        name: "Monaco Customizer Core",
+                        published_at: "2025-03-05T09:00:00Z",
+                        body: "### Added\n- Line numbering gutter integration for pre-code segments.\n- Clear Code and Download Code triggers built directly into the Canvas menu."
+                    }
+                ];
+                renderReleasesList(fallbackData);
+            }
+
+            // פונקציה לייצור כרטיס שחרור בודד כולל פענוח Markdown Bold נקי (ללא רקע סגול)
+            function createReleaseHTML(release) {
+                const date = new Date(release.published_at);
+                const formattedDate = date.toLocaleDateString('en-US', {
+                    year: 'numeric',
+                    month: 'short',
+                    day: 'numeric'
+                });
+
+                // עיבוד סימון הדגשה **דוגמה** לתגיות strong מודגשות ונקיות בלבד
+                let parsedBody = release.body.replace(/\*\*(.*?)\*\*/g, '<strong class="text-white font-bold">$1</strong>');
+
+                // עיבוד כותרות ורשימות Markdown
+                const bodyHTML = parsedBody
+                    .replace(/###\s+(.*)/g, '<h5 class="text-xs font-bold text-white mt-4 mb-2 uppercase tracking-wider">$1</h5>')
+                    .replace(/##\s+(.*)/g, '<h4 class="text-sm font-bold text-white mt-5 mb-2">$1</h4>')
+                    .replace(/-\s+(.*)/g, '<li class="text-xs text-m3-darkOnSurface/80 mb-1 ml-4 list-disc">$1</li>')
+                    .replace(/\n\n/g, '<br>')
+                    .replace(/\n/g, '<br>');
+
+                return `
+                    <div class="relative pl-8 md:pl-0 md:grid md:grid-cols-12 gap-6 items-start group">
+                        <!-- נקודת ציון על ציר הזמן -->
+                        <div class="absolute left-0 top-1.5 w-3 h-3 rounded-full bg-m3-primary border-2 border-m3-darkSurface z-10 -ml-1.5 group-hover:bg-m3-primaryContainer transition-all"></div>
+                        
+                        <!-- תאריך השחרור מצד שמאל בדסקטופ -->
+                        <div class="hidden md:block md:col-span-3 text-right text-xs font-mono text-m3-outline pt-1 pr-6">
+                            ${formattedDate}
+                        </div>
+                        
+                        <!-- כרטיס המידע על השחרור מימין -->
+                        <div class="md:col-span-9 bg-[#1E1F20]/50 border border-m3-outline/10 p-5 rounded-2xl group-hover:border-m3-primary/30 transition-all">
+                            <span class="md:hidden block text-[10px] font-mono text-m3-outline mb-1">${formattedDate}</span>
+                            <div class="flex flex-wrap items-center gap-2 mb-3">
+                                <span class="bg-m3-primary text-white text-xs font-bold px-2.5 py-0.5 rounded-full">${release.tag_name}</span>
+                                <h4 class="text-base font-bold text-white">${release.name || 'Feature Update'}</h4>
+                            </div>
+                            <div class="release-body text-xs text-m3-darkOnSurface/80 leading-relaxed font-sans">
+                                ${bodyHTML}
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }
+
+            // פונקציה ליירוס הנתונים ופרסומם (מציגה את האחרונה, והשאר מוסתרים)
+            function renderReleasesList(releases) {
+                loadingState.style.display = 'none';
+                timeline.classList.remove('hidden');
+
+                if (releases.length === 0) return;
+
+                // 1. הזרקת הגרסה האחרונה
+                latestContainer.innerHTML = createReleaseHTML(releases[0]);
+
+                // 2. הזרקת שאר הגרסאות אל תוך הקונטיינר המוסתר
+                olderContainer.innerHTML = '';
+                const olderReleases = releases.slice(1);
+
+                if (olderReleases.length > 0) {
+                    olderReleases.forEach((rel) => {
+                        olderContainer.innerHTML += createReleaseHTML(rel);
+                    });
+
+                    // הצגת כפתור ההרחבה
+                    toggleBtnContainer.classList.remove('hidden');
+
+                    toggleOlderBtn.addEventListener('click', () => {
+                        const isHidden = olderContainer.classList.contains('hidden');
+                        if (isHidden) {
+                            olderContainer.classList.remove('hidden');
+                            toggleBtnText.textContent = "Collapse Older Releases";
+                            toggleBtnIcon.style.transform = "rotate(180deg)";
+                        } else {
+                            olderContainer.classList.add('hidden');
+                            toggleBtnText.textContent = "Show Older Releases";
+                            toggleBtnIcon.style.transform = "rotate(0deg)";
+                            // גלילה חלקה חזרה לראש אזור השחרורים
+                            document.getElementById('releases').scrollIntoView({ behavior: 'smooth' });
+                        }
+                    });
+                }
+            }
+
+            // ביצוע הפנייה חיה ל-API של GitHub לשחרורים
+            async function fetchReleases() {
+                try {
+                    const response = await fetch('https://api.github.com/repos/AMITYEFET/Gemini-Plus/releases');
+                    if (!response.ok) throw new Error();
+                    const data = await response.json();
+                    if (data && data.length > 0) {
+                        renderReleasesList(data);
+                    } else {
+                        renderFallbackReleases();
+                    }
+                } catch (error) {
+                    renderFallbackReleases();
+                }
+            }
+
+            fetchReleases();
+
+            // --- לוגיקת רוטציית פיצ'רים מעודכנת (4 קבוצות, החלפה כל 7 שניות עם לחיצה ידנית וגובה חלקי דינמי) ---
+            const groups = [
+                document.getElementById('feature-group-1'),
+                document.getElementById('feature-group-2'),
+                document.getElementById('feature-group-3'),
+                document.getElementById('feature-group-4')
+            ];
+            const dots = [
+                document.getElementById('dot-1'),
+                document.getElementById('dot-2'),
+                document.getElementById('dot-3'),
+                document.getElementById('dot-4')
+            ];
+            
+            let activeGroupIdx = 0;
+            let rotationInterval;
+
+            function showGroup(targetIdx) {
+                groups.forEach((group, idx) => {
+                    if (idx === targetIdx) {
+                        // הצגת קבוצת היעד בצורה חלקה בתור relative שקובע את הגובה באופן טבעי
+                        group.classList.remove('hidden');
+                        group.classList.add('grid');
+                        
+                        // ביצוע reflow קל להחלת אנימציה חלקה
+                        group.offsetHeight;
+                        
+                        group.classList.remove('opacity-0', 'pointer-events-none');
+                        group.classList.add('opacity-100');
+                        group.style.transform = 'translateX(0px)';
+                        
+                        dots[idx].classList.replace('bg-m3-outline/35', 'bg-m3-primary');
+                    } else {
+                        // העלמת קבוצות שאינן פעילות
+                        group.classList.remove('opacity-100');
+                        group.classList.add('opacity-0', 'pointer-events-none');
+                        group.style.transform = idx < targetIdx ? 'translateX(-20px)' : 'translateX(20px)';
+                        
+                        dots[idx].classList.replace('bg-m3-primary', 'bg-m3-outline/35');
+                        
+                        // הסרה מלאה מזרימת המסמך לאחר סיום מעבר האנימציה (500ms)
+                        setTimeout(() => {
+                            if (activeGroupIdx !== idx) {
+                                group.classList.add('hidden');
+                                group.classList.remove('grid');
+                            }
+                        }, 500);
+                    }
+                });
+                activeGroupIdx = targetIdx;
+            }
+
+            // פונקציית רוטציה אוטומטית בכל 7 שניות
+            function startRotation() {
+                rotationInterval = setInterval(() => {
+                    let nextIdx = (activeGroupIdx + 1) % groups.length;
+                    showGroup(nextIdx);
+                }, 7000);
+            }
+
+            function resetRotation() {
+                clearInterval(rotationInterval);
+                startRotation();
+            }
+
+            // הוספת מאזיני לחיצה למחוונים התחתונים (Dots)
+            dots.forEach((dot, idx) => {
+                dot.addEventListener('click', () => {
+                    showGroup(idx);
+                    resetRotation(); // מאתחל את טיימר 7 השניות בלחיצה ידנית
+                });
+            });
+
+            // הפעלת רוטציה ראשונית
+            showGroup(0);
+            startRotation();
+        });
+    </script>
+</body>
+</html>
