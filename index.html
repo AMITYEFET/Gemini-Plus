@@ -3,7 +3,70 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gemini+ | Premium Google Gemini Enhancer</title>
+    
+    <!-- 1. Primary SEO Tags -->
+    <title>Gemini+ | Premium Google Gemini UI Enhancer & Code Tools</title>
+    <meta name="description" content="Gemini+ is a premium Chromium extension designed to eliminate UI clutter, inject native line numbers, custom scrollbars, wide chat layouts, and developer tools into Google Gemini.">
+    <meta name="keywords" content="Gemini+, Gemini Plus, Google Gemini, Gemini Extension, Gemini UI, Chrome Extension, Gemini Themes, Line Numbers Gemini, Gemini developer tools, Amit Yefet, FestAndPlay, FindFlix">
+    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+    <link rel="canonical" href="https://github.com/AMITYEFET/Gemini-Plus">
+    <meta name="author" content="Amit Yefet">
+    <meta name="theme-color" content="#6750A4">
+    
+    <!-- 2. Open Graph / Facebook Meta Tags -->
+    <meta property="og:title" content="Gemini+ | Premium Google Gemini UI Enhancer">
+    <meta property="og:description" content="Supercharge your Gemini Workspace with native line numbers, word wrap, custom scrollbars, and fluid resolution testing tools.">
+    <meta property="og:image" content="https://github.com/AMITYEFET/Gemini-Plus/blob/main/gemini-plus/icon.png?raw=true">
+    <meta property="og:url" content="https://github.com/AMITYEFET/Gemini-Plus">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Gemini+ Extension">
+    <meta property="og:locale" content="en_US">
+    
+    <!-- 3. Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Gemini+ | Ultimate Gemini UI Enhancer">
+    <meta name="twitter:description" content="Ditch the clutter. Add responsive resizing, Monaco customizer capabilities, and code management straight inside Google Gemini.">
+    <meta name="twitter:image" content="https://github.com/AMITYEFET/Gemini-Plus/blob/main/gemini-plus/icon.png?raw=true">
+    <meta name="twitter:creator" content="@AMITYEFET">
+    
+    <!-- 4. Additional Search Engines & Verification Tags -->
+    <meta name="google-site-verification" content="verification_placeholder_code">
+    <meta name="yandex-verification" content="verification_placeholder_code">
+    <meta name="msvalidate.01" content="verification_placeholder_code">
+    <meta name="rating" content="General">
+    <meta name="classification" content="Developer Tools, AI Extensions, Productivity">
+    <meta name="distribution" content="Global">
+    <meta name="copyright" content="Amit Yefet 2026">
+    
+    <!-- 5. Apple Mobile Web App Tags -->
+    <meta name="apple-mobile-web-app-title" content="Gemini+">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="format-detection" content="telephone=no">
+    
+    <!-- 6. Schema JSON-LD Structured Data (Highly recommended for Google SEO Rich Snippets) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "Gemini+",
+      "operatingSystem": "Chrome, Chromium, Brave, Edge",
+      "applicationCategory": "DeveloperApplication",
+      "offers": {
+        "@type": "Offer",
+        "price": "0.00",
+        "priceCurrency": "USD"
+      },
+      "author": {
+        "@type": "Person",
+        "name": "Amit Yefet",
+        "url": "https://github.com/AMITYEFET"
+      },
+      "description": "Premium Chromium extension injecting line numbers, responsive resolution resizing, custom scrollbars, and UI customization directly into Google Gemini.",
+      "softwareVersion": "1.3"
+    }
+    </script>
+
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -108,14 +171,17 @@
 </head>
 <body class="bg-m3-darkSurface text-m3-darkOnSurface font-sans selection:bg-m3-primaryContainer selection:text-m3-onPrimaryContainer overflow-x-hidden">
 
-    <!-- רקעים זוהרים דינמיים -->
-    <div class="glowing-bg top-10 left-[-100px]"></div>
-    <div class="glowing-bg top-[800px] right-[-100px]"></div>
-    <div class="glowing-bg bottom-40 left-[20%]"></div>
+    <div class="relative w-full overflow-x-hidden min-h-screen">
 
-    <!-- ניווט עליון -->
-    <header class="sticky top-0 z-50 backdrop-blur-md bg-m3-darkSurface/85 border-b border-m3-darkSurfaceVariant px-6 py-4 transition-all">
-        <div class="max-w-7xl mx-auto flex items-center justify-between">
+        <!-- רקעים זוהרים דינמיים מוגנים מפני זליגת רוחב במובייל -->
+        <div class="absolute inset-0 overflow-hidden pointer-events-none z-0">
+            <div class="glowing-bg top-10 left-[-100px]"></div>
+            <div class="glowing-bg top-[800px] right-[-100px]"></div>
+            <div class="glowing-bg bottom-40 left-[20%]"></div>
+        </div>
+
+        <!-- ניווט עליון -->
+        <header class="relative z-20 w-full max-w-7xl mx-auto px-6 py-6 flex items-center justify-between">
             <div class="flex items-center gap-3">
                 <div class="bg-gradient-to-tr from-m3-primary to-m3-primaryContainer p-1 rounded-xl shadow-lg shadow-m3-primary/20">
                     <!-- שימוש בלוגו הרשמי שסופק -->
@@ -123,7 +189,7 @@
                 </div>
                 <div>
                     <span class="font-extrabold text-xl tracking-tight bg-gradient-to-r from-white via-m3-primaryContainer to-m3-primary bg-clip-text text-transparent">Gemini+</span>
-                    <span class="text-xs block text-m3-outline -mt-1 font-medium">Premium Gemini Extension</span>
+                    <span class="text-xs block text-m3-outline -mt-1 font-medium">Premium UI Extension</span>
                 </div>
             </div>
 
@@ -144,8 +210,7 @@
                     Install Free
                 </a>
             </div>
-        </div>
-    </header>
+        </header>
 
     <!-- אזור Hero ראשי -->
     <section class="relative pt-20 pb-24 px-6 max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
@@ -199,7 +264,7 @@
                         <span class="w-3 h-3 rounded-full bg-yellow-500/80"></span>
                         <span class="w-3 h-3 rounded-full bg-green-500/80"></span>
                     </div>
-                    <span class="text-xs text-m3-outline font-mono bg-m3-darkSurface/50 px-3 py-1 rounded-md">gemini.google.com + Gemini+</span>
+                    <span class="text-[10px] sm:text-xs text-m3-outline font-mono bg-m3-darkSurface/50 px-2 sm:px-3 py-1 rounded-md truncate max-w-[150px] sm:max-w-none">gemini.google.com + Gemini+</span>
                     <span class="w-12"></span>
                 </div>
 
@@ -216,7 +281,7 @@
                             </button>
                         </div>
                         <div class="flex items-center gap-2">
-                            <span class="bg-m3-primary/20 text-m3-primaryContainer font-mono text-[10px] px-1.5 py-0.5 rounded border border-m3-primary/20">Enhanced Workspace</span>
+                            <span class="bg-m3-primary/20 text-m3-primaryContainer font-mono text-[10px] px-1.5 py-0.5 rounded border border-m3-primary/20 hidden sm:inline-block">Enhanced Workspace</span>
                         </div>
                     </div>
 
@@ -254,10 +319,10 @@
             </div>
 
             <!-- אזור רוטציית הפיצ'רים - 4 קבוצות של 3 פיצ'רים (סך הכל 12 כולל השלמות) -->
-            <div class="relative">
+            <div class="grid grid-cols-1 grid-rows-1 relative w-full overflow-hidden min-h-[500px] sm:min-h-[380px] md:min-h-[260px] items-start">
                 
                 <!-- קבוצה 1: פיצ'רים 1-3 -->
-                <div id="feature-group-1" class="feature-group grid grid-cols-1 md:grid-cols-3 gap-6 transition-opacity duration-500 ease-in-out">
+                <div id="feature-group-1" class="feature-group grid grid-cols-1 md:grid-cols-3 gap-6 transition-all duration-500 ease-in-out col-start-1 row-start-1 w-full">
                     <!-- Feature 1: Native Line Numbers -->
                     <div class="bg-m3-darkSurfaceVariant/30 border border-m3-outline/10 p-6 rounded-3xl hover:border-m3-primary/40 transition-all group">
                         <div class="w-12 h-12 rounded-2xl bg-m3-primary/10 text-m3-primary flex items-center justify-center mb-5 group-hover:scale-110 transition-transform">
@@ -299,7 +364,7 @@
                 </div>
 
                 <!-- קבוצה 2: פיצ'רים 4-6 -->
-                <div id="feature-group-2" class="feature-group hidden opacity-0 pointer-events-none grid-cols-1 md:grid-cols-3 gap-6 transition-opacity duration-500 ease-in-out">
+                <div id="feature-group-2" class="feature-group grid grid-cols-1 md:grid-cols-3 gap-6 transition-all duration-500 ease-in-out col-start-1 row-start-1 opacity-0 pointer-events-none">
                     <!-- Feature 4: Word Wrap -->
                     <div class="bg-m3-darkSurfaceVariant/30 border border-m3-outline/10 p-6 rounded-3xl hover:border-m3-primary/40 transition-all group">
                         <div class="w-12 h-12 rounded-2xl bg-m3-primary/10 text-m3-primary flex items-center justify-center mb-5 group-hover:scale-110 transition-transform">
@@ -341,7 +406,7 @@
                 </div>
 
                 <!-- קבוצה 3: פיצ'רים 7-9 -->
-                <div id="feature-group-3" class="feature-group hidden opacity-0 pointer-events-none grid-cols-1 md:grid-cols-3 gap-6 transition-opacity duration-500 ease-in-out">
+                <div id="feature-group-3" class="feature-group grid grid-cols-1 md:grid-cols-3 gap-6 transition-all duration-500 ease-in-out col-start-1 row-start-1 opacity-0 pointer-events-none">
                     <!-- Feature 7: Download Code -->
                     <div class="bg-m3-darkSurfaceVariant/30 border border-m3-outline/10 p-6 rounded-3xl hover:border-m3-primary/40 transition-all group">
                         <div class="w-12 h-12 rounded-2xl bg-m3-primary/10 text-m3-primary flex items-center justify-center mb-5 group-hover:scale-110 transition-transform">
@@ -383,7 +448,7 @@
                 </div>
 
                 <!-- קבוצה 4: פיצ'ר 10 + השלמות תפריט -->
-                <div id="feature-group-4" class="feature-group hidden opacity-0 pointer-events-none grid-cols-1 md:grid-cols-3 gap-6 transition-opacity duration-500 ease-in-out">
+                <div id="feature-group-4" class="feature-group grid grid-cols-1 md:grid-cols-3 gap-6 transition-all duration-500 ease-in-out col-start-1 row-start-1 opacity-0 pointer-events-none w-full">
                     <!-- Feature 10: Interface Language -->
                     <div class="bg-m3-darkSurfaceVariant/30 border border-m3-outline/10 p-6 rounded-3xl hover:border-m3-primary/40 transition-all group">
                         <div class="w-12 h-12 rounded-2xl bg-m3-primary/10 text-m3-primary flex items-center justify-center mb-5 group-hover:scale-110 transition-transform">
@@ -534,8 +599,8 @@
                         <p class="text-sm text-m3-darkOnSurface/70 mb-4 leading-relaxed">
                             Open a new tab and navigate to the browser’s extensions controller page.
                         </p>
-                        <div class="bg-[#1E1F20] p-3 rounded-2xl border border-m3-outline/10 font-mono text-xs flex justify-between items-center max-w-md">
-                            <span class="text-m3-primary font-semibold">chrome://extensions</span>
+                        <div class="bg-[#1E1F20] p-3 rounded-2xl border border-m3-outline/10 font-mono text-xs flex justify-between items-center max-w-md w-full overflow-hidden">
+                            <span class="text-m3-primary font-semibold break-all mr-2">chrome://extensions</span>
                             <button onclick="navigator.clipboard.writeText('chrome://extensions')" class="text-m3-outline hover:text-white transition-colors" title="Copy link">
                                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3" stroke-width="2"/></svg>
                             </button>
@@ -599,7 +664,7 @@
                 </div>
             </div>
 
-            <!-- כרטיס יוצר הפרויקט (מעודכן עם תיאור וביוגרפיה חדשים) -->
+            <!-- ביטחון ואמינות הפרויקט -->
             <div class="bg-gradient-to-tr from-[#1B122C] to-m3-darkSurfaceVariant/30 p-8 rounded-3xl border border-m3-outline/10 text-center relative overflow-hidden">
                 <div class="absolute -top-12 -left-12 w-48 h-48 bg-m3-primary/10 blur-2xl rounded-full"></div>
                 
@@ -612,9 +677,9 @@
                 <h5 class="text-xl font-black text-white mb-1">Amit Yefet</h5>
                 <span class="text-xs text-m3-outline block mb-4">Young Hobbyist Developer</span>
                 
-                <!-- ביוגרפיה מעודכנת באנגלית הכוללת קישורים לחיצים חיצוניים -->
+                <!-- ביוגרפיה מעודכנת באנגלית הכוללת קישורים לחיצים חיצוניים לכתובות האישיות -->
                 <p class="text-xs text-m3-darkOnSurface/70 leading-relaxed max-w-sm mx-auto mb-6">
-                    Creator of Gemini+, <a href="https://github.com/AMITYEFET/FestAndPlay" target="_blank" class="text-m3-primaryContainer hover:underline font-semibold text-white">FestAndPlay</a> and <a href="https://github.com/AMITYEFET/Find-Flix" target="_blank" class="text-m3-primaryContainer hover:underline font-semibold text-white">Find-Flix</a>.
+                    Creator of Gemini+, <a href="https://FestAndPlay.edgeone.app" target="_blank" class="text-m3-primaryContainer hover:underline font-semibold text-white">FestAndPlay</a> and <a href="https://findflix.tv" target="_blank" class="text-m3-primaryContainer hover:underline font-semibold text-white">Find-Flix</a>.
                 </p>
 
                 <div class="flex items-center justify-center gap-3">
@@ -651,6 +716,8 @@
             </div>
         </div>
     </footer>
+
+    </div> <!-- סגירת קונטיינר המניעה הראשי של גלישת מובייל -->
 
     <!-- לוגיקת אתר ותקשורת מול ה-API של GitHub -->
     <script>
@@ -792,7 +859,7 @@
 
             fetchReleases();
 
-            // --- לוגיקת רוטציית פיצ'רים מעודכנת (4 קבוצות, החלפה כל 7 שניות עם לחיצה ידנית וגובה חלקי דינמי) ---
+            // --- STREAMING_CHUNK: Rewriting carousel rotation JS logic to leverage the unified grid overlay model for seamless horizontal slides ---
             const groups = [
                 document.getElementById('feature-group-1'),
                 document.getElementById('feature-group-2'),
@@ -812,33 +879,18 @@
             function showGroup(targetIdx) {
                 groups.forEach((group, idx) => {
                     if (idx === targetIdx) {
-                        // הצגת קבוצת היעד בצורה חלקה בתור relative שקובע את הגובה באופן טבעי
-                        group.classList.remove('hidden');
-                        group.classList.add('grid');
-                        
-                        // ביצוע reflow קל להחלת אנימציה חלקה
-                        group.offsetHeight;
-                        
                         group.classList.remove('opacity-0', 'pointer-events-none');
-                        group.classList.add('opacity-100');
+                        group.classList.add('opacity-100', 'pointer-events-auto');
                         group.style.transform = 'translateX(0px)';
                         
                         dots[idx].classList.replace('bg-m3-outline/35', 'bg-m3-primary');
                     } else {
-                        // העלמת קבוצות שאינן פעילות
-                        group.classList.remove('opacity-100');
+                        group.classList.remove('opacity-100', 'pointer-events-auto');
                         group.classList.add('opacity-0', 'pointer-events-none');
-                        group.style.transform = idx < targetIdx ? 'translateX(-20px)' : 'translateX(20px)';
+                        // שינוי של 30 פיקסלים שמאלה או ימינה ליצירת אנימציית סלייד מבוססת מיקום
+                        group.style.transform = idx < targetIdx ? 'translateX(-30px)' : 'translateX(30px)';
                         
                         dots[idx].classList.replace('bg-m3-primary', 'bg-m3-outline/35');
-                        
-                        // הסרה מלאה מזרימת המסמך לאחר סיום מעבר האנימציה (500ms)
-                        setTimeout(() => {
-                            if (activeGroupIdx !== idx) {
-                                group.classList.add('hidden');
-                                group.classList.remove('grid');
-                            }
-                        }, 500);
                     }
                 });
                 activeGroupIdx = targetIdx;
